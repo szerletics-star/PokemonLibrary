@@ -1,0 +1,31 @@
+.pokemon-bg {
+    background-image: url("../logo.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 20%;
+}
+
+.list{
+    margin-top: 180px;
+}
+
+.pokemons {
+
+}
+
+.poke-card {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    background: #ffffff;
+    text-align: center;
+    line-height: 100px;
+}
+
+.poke-card:last-child {
+    margin-right: 0;
+}
