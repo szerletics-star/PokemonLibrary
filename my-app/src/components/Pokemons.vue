@@ -70,7 +70,7 @@ export default {
     }
   },
   methods: {
-    showModal: function (id, isEdit) {
+    showModal: (id, isEdit) => {
       this.pokemonTypes                = [];
       this.isEdit                      = isEdit;
       this.pokemonName                 = this.pokemonDetails[id].name;
@@ -81,10 +81,10 @@ export default {
         this.pokemonTypes.push(item.type.name);
       });
     },
-    next:      function () {
+    next:      () => {
       this.$emit('getNextPokemons');
     },
-    prev:      function () {
+    prev:      () => {
       this.$emit('getPrevPokemons');
     },
   }

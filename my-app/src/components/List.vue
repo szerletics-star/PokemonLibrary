@@ -7,10 +7,7 @@
           @getNextPokemons="getNextPokemons" @getPrevPokemons="getPrevPokemons"
           :prevDisabled="prevDisabled" :nextDisabled="nextDisabled"/>
       <div v-if="pokemons.length === 0">
-        <div
-            class="loader"
-            role="progressbar"
-        >
+        <div class="loader" role="progressbar">
           <div class="pokeball-container">
             <div class="pokeball"></div>
             <div class="text">Loading...</div>
@@ -45,7 +42,7 @@ export default {
     }
   },
   methods: {
-    getPokemons:       function (limit, offset) {
+    getPokemons:       (limit, offset) => {
       getPokemons(limit, offset)
           .then(async response => {
             if (response.success === true) {
@@ -56,7 +53,7 @@ export default {
             }
           });
     },
-    getPokemonDetails: async function (pokemonIds) {
+    getPokemonDetails: async (pokemonIds) => {
       await getPokemonDetails(pokemonIds)
           .then(response => {
             if (response.success === true) {
@@ -65,7 +62,7 @@ export default {
           });
     },
 
-    getPrevPokemons: function () {
+    getPrevPokemons: () => {
       this.pokemons       = [];
       this.pokemonDetails = [];
 
@@ -79,7 +76,7 @@ export default {
 
       this.getPokemons(this.limit, this.offset);
     },
-    getNextPokemons: function () {
+    getNextPokemons: () => {
       this.pokemons       = [];
       this.pokemonDetails = [];
 

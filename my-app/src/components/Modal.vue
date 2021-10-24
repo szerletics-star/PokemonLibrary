@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    checkForm: function (e) {
+    checkForm: (e) => {
       this.errors = [];
 
       if (!this.pokemonName) {
@@ -57,13 +57,13 @@ export default {
       }
 
       if (this.errors.length === 0) {
-        this.makeToast('success');
+        this.makeToast('success', this.pokemonName + ' was edited successfully');
       } else {
         e.preventDefault();
       }
     },
-    makeToast(variant = null) {
-      this.$bvToast.toast(this.pokemonName + ' was edited successfully', {
+    makeToast: (variant = null, message) => {
+      this.$bvToast.toast(message, {
         title:   `Notification`,
         variant: variant,
         solid:   true
