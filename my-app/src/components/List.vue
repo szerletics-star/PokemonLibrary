@@ -42,7 +42,7 @@ export default {
     }
   },
   methods: {
-    getPokemons:       (limit, offset) => {
+    getPokemons(limit, offset) {
       getPokemons(limit, offset)
           .then(async response => {
             if (response.success === true) {
@@ -51,21 +51,30 @@ export default {
 
               this.pokemons = response.data.results;
             }
+          })
+          .catch(error => {
+            // TODO: Create a notification
+            console.log(error);
           });
     },
-    getPokemonDetails: async (pokemonIds) => {
+    async getPokemonDetails(pokemonIds) {
       await getPokemonDetails(pokemonIds)
           .then(response => {
             if (response.success === true) {
               this.pokemonDetails = response.data;
             }
+          })
+          .catch(error => {
+            // TODO: Create a notification
+            console.log(error);
           });
     },
 
-    getPrevPokemons: () => {
+    getPrevPokemons() {
       this.pokemons       = [];
       this.pokemonDetails = [];
 
+      this.nextDisabled = false;
       if (this.offset > 0) {
         this.offset = this.offset - this.limit;
       }
@@ -76,7 +85,7 @@ export default {
 
       this.getPokemons(this.limit, this.offset);
     },
-    getNextPokemons: () => {
+    getNextPokemons() {
       this.pokemons       = [];
       this.pokemonDetails = [];
 

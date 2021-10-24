@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    checkForm: (e) => {
+    checkForm(e) {
       this.errors = [];
 
       if (!this.pokemonName) {
@@ -62,7 +62,7 @@ export default {
         e.preventDefault();
       }
     },
-    makeToast: (variant = null, message) => {
+    makeToast(variant = null, message) {
       this.$bvToast.toast(message, {
         title:   `Notification`,
         variant: variant,

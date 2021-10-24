@@ -69,6 +69,9 @@ body {
 
 .flipped, .hovercard:hover {
 	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 }
 
@@ -96,10 +99,6 @@ body {
 	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.poke-card:before {
-
-}
-
 .poke-card .img-container {
 	background-color: rgba(255, 255, 255, 0.6);
 	align-content: center;
@@ -117,6 +116,10 @@ body {
 .poke-card .img-container img {
 	max-height: 100%;
 	max-width: 100%;
+	-webkit-transform: scale(0.7);
+	-moz-transform: scale(0.7);
+	-ms-transform: scale(0.7);
+	-o-transform: scale(0.7);
 	transform: scale(0.7);
 }
 
@@ -415,11 +418,6 @@ body {
 
 .b-toast .toast .toast-body {
 	font-size: 20px;
-}
-
-
-.pokemon-pagination {
-
 }
 
 .pokemon-pagination .prev-button {
