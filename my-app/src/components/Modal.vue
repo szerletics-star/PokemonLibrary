@@ -3,7 +3,12 @@
     <b-modal centered :id="modalId" :title="modalTitle" class="pokemon-modal" :ok-title="okTitle" @ok="checkForm" :hide-footer="isEdit ? false : true">
       <div class="row">
         <div class="col-lg-7">
-          <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + selectedPokemonId + '.png'" :alt="pokemonName">
+          <div v-if="isCreate">
+            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input">
+          </div>
+          <div v-if="!isCreate">
+            <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + selectedPokemonId + '.png'" :alt="pokemonName">
+          </div>
         </div>
         <div class="col-lg-5">
           <p class="list-elem">
@@ -34,6 +39,7 @@ export default {
     modalId:           {type: String},
     okTitle:           {type: String},
     modalTitle:        {type: String},
+    isCreate:          {type: Boolean},
     isEdit:            {type: Boolean},
     pokemonName:       {type: String},
     pokemonTypes:      {type: Array},
@@ -41,7 +47,8 @@ export default {
   },
   data() {
     return {
-      errors: []
+      errors:       [],
+      uploadedFile: null
     }
   },
   methods: {
@@ -56,6 +63,10 @@ export default {
         this.errors.push('Type is required.');
       }
 
+      if (this.isCreate && this.uploadedFile === null) {
+        this.errors.push('Image is required.');
+      }
+
       if (this.errors.length === 0) {
         this.makeToast('success', this.pokemonName + ' was edited successfully');
       } else {
@@ -68,6 +79,13 @@ export default {
         variant: variant,
         solid:   true
       })
+    },
+    uploadImage(event) {
+      this.uploadedFile = '';
+
+      if (event.target.files[0] && event.target.files[0].name) {
+        this.uploadedFile = event.target.files[0].name;
+      }
     }
   }
 }

@@ -37,16 +37,22 @@
           &#65125;
         </div>
       </div>
+      <div v-if="pokemons.length !== 0" class="create-pokemon" v-b-modal.modal-3 v-on:click="resetCreateModal()">+</div>
     </div>
     <Modal
         v-if="pokemons.length !== 0" :modalId="'modal-1'" :modalTitle="'Pokemon Details'"
-        :okTitle="'Ok'" :isEdit="false" :pokemonName="pokemonName"
+        :okTitle="'Ok'" :isEdit="false" :isCreate="false" :pokemonName="pokemonName"
         :selectedPokemonId="selectedPokemonId" :pokemonTypes="pokemonTypes"
     ></Modal>
     <Modal
         v-if="pokemons.length !== 0" :modalId="'modal-2'" :modalTitle="'Pokemon Edit'"
-        :okTitle="'Edit'" :isEdit="true" :pokemonName="pokemonName"
-        :selectedPokemonId="selectedPokemonId" :pokemonTypes="pokemonTypes" ref="modalComponent"
+        :okTitle="'Edit'" :isEdit="true" :isCreate="false" :pokemonName="pokemonName"
+        :selectedPokemonId="selectedPokemonId" :pokemonTypes="pokemonTypes" ref="modalComponentEdit"
+    ></Modal>
+    <Modal
+        v-if="pokemons.length !== 0" :modalId="'modal-3'" :modalTitle="'Pokemon Create'"
+        :okTitle="'Create'" :isEdit="true" :isCreate="true" :pokemonName="''"
+        :selectedPokemonId="selectedPokemonId" :pokemonTypes="[]" ref="modalComponentCreate"
     ></Modal>
   </div>
 </template>
@@ -71,15 +77,20 @@ export default {
   },
   methods: {
     showModal(id, isEdit) {
-      this.pokemonTypes                = [];
-      this.isEdit                      = isEdit;
-      this.pokemonName                 = this.pokemonDetails[id].name;
-      this.selectedPokemonId           = id;
-      this.$refs.modalComponent.errors = [];
+      this.pokemonTypes                      = [];
+      this.isEdit                            = isEdit;
+      this.pokemonName                       = this.pokemonDetails[id].name;
+      this.selectedPokemonId                 = id;
+      this.$refs.modalComponentEdit.errors   = [];
+      this.$refs.modalComponentCreate.errors = [];
 
       this.pokemonDetails[id].types.forEach((item) => {
         this.pokemonTypes.push(item.type.name);
       });
+    },
+    resetCreateModal() {
+      this.pokemonTypes = [];
+      this.pokemonName  = '';
     },
     next() {
       this.$emit('getNextPokemons');
