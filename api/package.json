@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "got": "^11.8.2",
     "http-proxy-middleware": "^1.0.4",
+    "lodash": "^4.17.21",
     "request": "^2.88.2"
   },
   "devDependencies": {
