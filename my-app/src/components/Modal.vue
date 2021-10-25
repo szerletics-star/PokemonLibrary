@@ -52,6 +52,7 @@ export default {
     }
   },
   methods: {
+    // Validate form
     checkForm(e) {
       this.errors = [];
 
@@ -67,12 +68,14 @@ export default {
         this.errors.push('Image is required.');
       }
 
+      // Show notification, if pokemon was edited successfully
       if (this.errors.length === 0) {
         this.makeToast('success', this.pokemonName + ' was edited successfully');
       } else {
         e.preventDefault();
       }
     },
+    // Create notification toaster
     makeToast(variant = null, message) {
       this.$bvToast.toast(message, {
         title:   `Notification`,
@@ -80,6 +83,7 @@ export default {
         solid:   true
       })
     },
+    // Fake function to get and set uploaded image name (needed for validation)
     uploadImage(event) {
       this.uploadedFile = '';
 

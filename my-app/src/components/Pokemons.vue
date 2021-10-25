@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="row" style="justify-content: center; position: relative">
-      <div class="col-lg-3" v-for="item in pokemons" :key="item.name">
+      <div class="col-lg-3" v-for="(item, index)  in pokemons" :key="item.name">
         <div class="deck">
-          <div class="card-p hovercard">
+          <div :class="['card-p', 'hovercard', (index===0 && animate ? 'flipped' : '')]">
             <div class="front face">
               <div class="poke-card">
                 <div class="img-container">
@@ -68,36 +68,79 @@ export default {
   data() {
     return {
       isEdit:            false,
-      modalTitle:        '',
-      errors:            [],
-      selectedPokemonId: null,
+      animate:           false,
       pokemonName:       null,
+      selectedPokemonId: null,
       pokemonTypes:      [],
+      errors:            [],
+      modalTitle:        ''
     }
   },
   methods: {
+    // Show modal
     showModal(id, isEdit) {
-      this.pokemonTypes                      = [];
-      this.isEdit                            = isEdit;
-      this.pokemonName                       = this.pokemonDetails[id].name;
-      this.selectedPokemonId                 = id;
+      this.isEdit            = isEdit;
+      this.selectedPokemonId = id;
+
+      // Empty pokemon
+      this.pokemonName  = this.pokemonDetails[id].name;
+      this.pokemonTypes = [];
+
+      // Empty errors
       this.$refs.modalComponentEdit.errors   = [];
       this.$refs.modalComponentCreate.errors = [];
 
+      // Get pokemon types from details
       this.pokemonDetails[id].types.forEach((item) => {
         this.pokemonTypes.push(item.type.name);
       });
     },
+    // Empty pokemon
     resetCreateModal() {
-      this.pokemonTypes = [];
       this.pokemonName  = '';
+      this.pokemonTypes = [];
     },
+    // Load next pokemons
     next() {
       this.$emit('getNextPokemons');
     },
+    // Load prev pokemons
     prev() {
       this.$emit('getPrevPokemons');
     },
+    // Add animation
+    addAnimation() {
+      setTimeout(() => {
+        this.animate = true;
+        setTimeout(() => {
+          this.animate = false;
+        }, 1000);
+      }, 1500);
+    },
+    // The function and animation is to make the user aware of the hover effect over the cards
+    // The animation is displayed only until the first five visits
+    callAnimationUntilFirstFiveView() {
+      let pageView = 1;
+
+      if (localStorage.pageView) {
+        pageView = parseInt(localStorage.pageView);
+
+        // If page view is greater than five, then do not put data in localstorage
+        if (pageView <= 5) {
+          pageView++
+          localStorage.pageView = pageView;
+        }
+      } else {
+        localStorage.pageView = pageView;
+      }
+
+      if (pageView <= 5) {
+        this.addAnimation();
+      }
+    },
+  },
+  mounted() {
+    this.callAnimationUntilFirstFiveView();
   }
 }
 </script>

@@ -29,14 +29,14 @@ export default {
   },
   data() {
     return {
-      currentPokemonIds:   [],
       pokemons:            [],
       pokemonDetails:      [],
-      showNotification:    false,
-      notificationMessage: '',
+      currentPokemonIds:   [],
       totalPokemon:        80,
       limit:               8,
       offset:              0,
+      showNotification:    false,
+      notificationMessage: '',
       prevDisabled:        true,
       nextDisabled:        false,
     }
@@ -46,7 +46,10 @@ export default {
       getPokemons(limit, offset)
           .then(async response => {
             if (response.success === true) {
+              // Get pokemon ids
               const currentPokemonIds = _.map(response.data.results, 'id');
+
+              // Using the ids get pokemon details
               await this.getPokemonDetails(currentPokemonIds);
 
               this.pokemons = response.data.results;
@@ -74,33 +77,44 @@ export default {
       this.pokemons       = [];
       this.pokemonDetails = [];
 
+      // Enable next button
       this.nextDisabled = false;
+
+      // Extract from offset
       if (this.offset > 0) {
         this.offset = this.offset - this.limit;
       }
 
+      // If offset is 0, then disable prev button
       if (this.offset === 0) {
         this.prevDisabled = true;
       }
 
+      // Load pokemons
       this.getPokemons(this.limit, this.offset);
     },
     getNextPokemons() {
       this.pokemons       = [];
       this.pokemonDetails = [];
 
+      // Enable prev button
       this.prevDisabled = false;
-      this.offset       = this.offset + this.limit;
 
+      // Increase offset
+      this.offset = this.offset + this.limit;
+
+      // If offset larger, than total pokemon, then disable next button
       if (this.offset >= this.totalPokemon - this.limit) {
         this.nextDisabled = true;
       }
 
+      // Load pokemons
       this.getPokemons(this.limit, this.offset);
     },
   },
 
   mounted() {
+    // Load pokemons
     this.getPokemons(this.limit, this.offset);
   }
 }
