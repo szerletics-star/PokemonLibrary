@@ -36,14 +36,15 @@
 export default {
   name:  'Modal',
   props: {
-    modalId:           {type: String},
-    okTitle:           {type: String},
-    modalTitle:        {type: String},
-    isCreate:          {type: Boolean},
-    isEdit:            {type: Boolean},
-    pokemonName:       {type: String},
-    pokemonTypes:      {type: Array},
-    selectedPokemonId: {type: Number},
+    modalId:             {type: String},
+    okTitle:             {type: String},
+    modalTitle:          {type: String},
+    isCreate:            {type: Boolean},
+    isEdit:              {type: Boolean},
+    pokemonName:         {type: String},
+    pokemonTypes:        {type: Array},
+    selectedPokemonId:   {type: Number},
+    notificationMessage: {type: String},
   },
   data() {
     return {
@@ -70,7 +71,7 @@ export default {
 
       // Show notification, if pokemon was edited successfully
       if (this.errors.length === 0) {
-        this.makeToast('success', this.pokemonName + ' was edited successfully');
+        this.makeToast('success', this.pokemonName + ' ' + this.notificationMessage);
       } else {
         e.preventDefault();
       }

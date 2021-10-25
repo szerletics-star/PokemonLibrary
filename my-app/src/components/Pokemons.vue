@@ -43,16 +43,19 @@
         v-if="pokemons.length !== 0" :modalId="'modal-1'" :modalTitle="'Pokemon Details'"
         :okTitle="'Ok'" :isEdit="false" :isCreate="false" :pokemonName="pokemonName"
         :selectedPokemonId="selectedPokemonId" :pokemonTypes="pokemonTypes"
+        :notificationMessage="'was edited successfully'"
     ></Modal>
     <Modal
         v-if="pokemons.length !== 0" :modalId="'modal-2'" :modalTitle="'Pokemon Edit'"
         :okTitle="'Edit'" :isEdit="true" :isCreate="false" :pokemonName="pokemonName"
         :selectedPokemonId="selectedPokemonId" :pokemonTypes="pokemonTypes" ref="modalComponentEdit"
+        :notificationMessage="'was edited successfully'"
     ></Modal>
     <Modal
         v-if="pokemons.length !== 0" :modalId="'modal-3'" :modalTitle="'Pokemon Create'"
         :okTitle="'Create'" :isEdit="true" :isCreate="true" :pokemonName="''"
         :selectedPokemonId="selectedPokemonId" :pokemonTypes="[]" ref="modalComponentCreate"
+        :notificationMessage="'was created successfully'"
     ></Modal>
   </div>
 </template>
